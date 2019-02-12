@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GttApiWeb", "GttApiWeb\GttApiWeb.csproj", "{B28C5609-02CF-4814-B113-953F5FA0E04D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B28C5609-02CF-4814-B113-953F5FA0E04D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B28C5609-02CF-4814-B113-953F5FA0E04D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B28C5609-02CF-4814-B113-953F5FA0E04D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B28C5609-02CF-4814-B113-953F5FA0E04D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D4F16ED-6DF5-4AC7-B1ED-A1A3EFF007CC}
+	EndGlobalSection
+EndGlobal
