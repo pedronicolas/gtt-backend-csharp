@@ -131,8 +131,9 @@ namespace GttApiWeb.Controllers
                     CertUpdate.subject = certificate.Subject;
                     CertUpdate.fechaCaducidad = certificate.NotAfter;
                     CertUpdate.eliminado = false;
-                    CertUpdate.caducado = false;
-                    CertUpdate.ticket_creado = false;
+                    CertUpdate.caducado = value.caducado;
+
+                    CertUpdate.ticket_creado = value.ticket_creado;
                     this._context.SaveChanges();
 
                     Control control = new Control(200, "Certificado añadido", "", -1, -1);
@@ -140,7 +141,8 @@ namespace GttApiWeb.Controllers
                 }
 
                 return Ok("Todo ok");
-            }catch(Exception e)
+            }
+            catch(Exception e)
             {
                 return Unauthorized();
             }

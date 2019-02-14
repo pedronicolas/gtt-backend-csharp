@@ -25,6 +25,7 @@ namespace GttApiWeb.Services
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Arrancando el servicio");
+            //Cambiar a cada 12 horas después de la exposición.
             _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
             return Task.CompletedTask;
         }
@@ -46,7 +47,8 @@ namespace GttApiWeb.Services
                         cert.eliminado = true;
                         context.SaveChanges();
                     }
-                    _logger.LogInformation(cert.caducado.ToString() +" : " + cert.alias);
+                    //Por si quieren ver que funciona en ese rango de tiempo.
+                    //_logger.LogInformation(cert.caducado.ToString() +" : " + cert.alias);
                 }
 
             }
