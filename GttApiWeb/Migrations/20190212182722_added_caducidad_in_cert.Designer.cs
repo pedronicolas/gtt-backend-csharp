@@ -3,15 +3,17 @@ using System;
 using GttApiWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace GttApiWeb.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20190212182722_added_caducidad_in_cert")]
+    partial class added_caducidad_in_cert
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,8 +57,6 @@ namespace GttApiWeb.Migrations
                     b.Property<string>("repositorio");
 
                     b.Property<string>("subject");
-
-                    b.Property<bool>("ticket_creado");
 
                     b.HasKey("id");
 

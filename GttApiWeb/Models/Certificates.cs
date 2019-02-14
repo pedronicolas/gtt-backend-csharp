@@ -21,6 +21,8 @@ namespace GttApiWeb.Models
         public string repositorio { get; set; }
         public string observaciones { get; set; }
         public bool eliminado { get; set; }
+        public bool caducado { get; set; }
+        public bool ticket_creado { get; set; }
         public string fichero64 { get; set; }
         public string nombreArchivo { get; set; }
 

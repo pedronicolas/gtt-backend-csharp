@@ -21,13 +21,12 @@ namespace GttApiWeb.Controllers
             this._context = context;
             if (this._context.Jira.Count() == 0)
             {
-                Console.WriteLine("No existe ningún usuario");
                 Jira jira = new Jira();
-                jira.username = "Pedro";
-                jira.pass = Encrypt.Hash("pass");
-                jira.component = "componente";
-                jira.proyect = "gttCertificates";
-                jira.url = "www.google.es";
+                jira.username = "admin";
+                jira.pass = Encrypt.Hash("pedro1234");
+                jira.component = "Explotacion!";
+                jira.proyect = "SIT";
+                jira.url = "https://pedronicolasgtt.atlassian.net/";
                 jira.user_id = 1;
                 this._context.Jira.Add(jira);
                 this._context.SaveChanges();

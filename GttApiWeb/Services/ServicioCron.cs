@@ -25,7 +25,7 @@ namespace GttApiWeb.Services
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Arrancando el servicio");
-            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
             return Task.CompletedTask;
         }
 
@@ -37,10 +37,16 @@ namespace GttApiWeb.Services
             using (var context = new AppDBContext(optionsBuild.Options))
             {
                 context.Certificates.Load();
+                DateTime maxDateTime = DateTime.Now.AddMonths(3);
                 foreach (var cert in context.Certificates.Local)
                 {
-                    //DateTime maxDateTime = DateTime();
-                    _logger.LogInformation(cert.alias);
+                    if(cert.fechaCaducidad.AddMonths(3)<= maxDateTime)
+                    {
+                        cert.caducado = true;
+                        cert.eliminado = true;
+                        context.SaveChanges();
+                    }
+                    _logger.LogInformation(cert.caducado.ToString() +" : " + cert.alias);
                 }
 
             }

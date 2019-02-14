@@ -86,6 +86,7 @@ namespace GttApiWeb.Controllers
                 value.entidadEmisora = certificate.Issuer.ToString();
                 value.subject = certificate.Subject;
                 value.fechaCaducidad = certificate.NotAfter;
+                value.caducado = false;
                 this._context.Certificates.Add(value);
                 this._context.SaveChanges();
 
@@ -103,8 +104,49 @@ namespace GttApiWeb.Controllers
 
         // PUT: api/Certificates/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult<Control> Put( [FromBody] Certificates value)
         {
+            try
+            {
+                var headerValue = Request.Headers["Authorization"];
+                var tokenJ = JWT.Decode(headerValue, "top secret");
+                Certificates CertUpdate = this._context.Certificates.Where(cert => cert.id.Equals(value.id)).First();
+                if (CertUpdate != null)
+                {// Obtenemos el string en base64 y se convierte a byte []
+                    byte[] arrayBytes = System.Convert.FromBase64String(value.fichero64);
+                    // Lo cargamos en certificate
+                    X509Certificate2 certificate = new X509Certificate2(arrayBytes, value.password);
+                    string token = certificate.ToString(true);
+
+                    //Extracción parámetros del certificado.
+                    CertUpdate.alias = value.alias;
+                    CertUpdate.entidadEmisora = value.entidadEmisora;
+                    CertUpdate.email = value.email;
+                    CertUpdate.idOrga = value.idOrga;
+                    CertUpdate.nombreArchivo = value.nombreArchivo;
+                    CertUpdate.nombreCliente = value.nombreCliente;
+
+                    CertUpdate.numeroSerie = certificate.GetSerialNumberString();
+                    CertUpdate.entidadEmisora = certificate.Issuer.ToString();
+                    CertUpdate.subject = certificate.Subject;
+                    CertUpdate.fechaCaducidad = certificate.NotAfter;
+                    CertUpdate.eliminado = false;
+                    CertUpdate.caducado = false;
+                    CertUpdate.ticket_creado = false;
+                    this._context.SaveChanges();
+
+                    Control control = new Control(200, "Certificado añadido", "", -1, -1);
+                    return control;
+                }
+
+                return Ok("Todo ok");
+            }catch(Exception e)
+            {
+                return Unauthorized();
+            }
+
+                    
+           
         }
 
         // DELETE: api/ApiWithActions/5
