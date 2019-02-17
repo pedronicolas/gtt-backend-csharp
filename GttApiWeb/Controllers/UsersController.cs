@@ -84,17 +84,9 @@ namespace GttApiWeb.Controllers
                     this._context.Users.Add(value);
                     this._context.SaveChanges();
 
-
-
-                control.status = 200;
-                control.comment = "Registro realizado correctamente";
-                return control;
+                return control = new Control(200,"Registro Realizado");
             }
-            //Control control = new Control(401, "Incorrecto");
-            control.status = 409;
-            control.comment = "Usuario ya registrado";
-            return control;
-           
+            return control = new Control(409,"Usuario ya registrado");
             }
         // PUT api/users/5
         [HttpPut("{id}")]
@@ -108,7 +100,7 @@ namespace GttApiWeb.Controllers
 
         // DELETE api/users/5
         [HttpDelete("{id}")]
-        public ActionResult<String> Delete(long id)
+        public ActionResult<Control> Delete(long id)
         {
             Users userDelete = this._context.Users.Where(userQ => userQ.id == id).First();
             if(userDelete == null)
@@ -117,7 +109,7 @@ namespace GttApiWeb.Controllers
             }
             this._context.Remove(userDelete);
             this._context.SaveChanges();
-            return "200";
+            return control = new Control(200,"Borrado Realizado");
             
         }
     }

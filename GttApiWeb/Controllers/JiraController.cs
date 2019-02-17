@@ -97,13 +97,16 @@ namespace GttApiWeb.Controllers
 
 
 
-                    control = new Control(200, "Usuario Guardado", "", -1, -1);
+                    control = new Control(200, "Usuario Guardado");
                     return control;
                 }
                 //Control control = new Control(401, "Incorrecto");
-                control = new Control(409, "Usuario Ocupado", "", -1, -1);
+                control = new Control(409, "Usuario Ocupado");
                 return control;
-            } catch(Exception e){ return Unauthorized(); }
+            } catch(Exception)
+            {
+                return Unauthorized();
+            }
             
         }
 
@@ -127,12 +130,12 @@ namespace GttApiWeb.Controllers
                         this._context.SaveChanges();
 
                     }
-                    Control control = new Control(200, "User Changed", "", -1, -1);
+                    Control control = new Control(200, "User Changed");
                     return control;
                 }
                 catch (Exception)
                 {
-                    Control control = new Control(409, "IncorrectUser", "", -1, -1);
+                    Control control = new Control(409, "IncorrectUser");
                 }
 
                 return NotFound();

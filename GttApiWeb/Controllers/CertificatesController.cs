@@ -73,25 +73,34 @@ namespace GttApiWeb.Controllers
         {
             try
             {
+                
                 var headerValue = Request.Headers["Authorization"];
                 var tokenJ = JWT.Decode(headerValue, "top secret");
                 // Obtenemos el string en base64 y se convierte a byte []
-                byte[] arrayBytes = System.Convert.FromBase64String(value.fichero64);
-                // Lo cargamos en certificate
-                X509Certificate2 certificate = new X509Certificate2(arrayBytes, value.password);
-                string token = certificate.ToString(true);
+                try
+                {
+                    byte[] arrayBytes = System.Convert.FromBase64String(value.fichero64);
+                    // Lo cargamos en certificate
+                    X509Certificate2 certificate = new X509Certificate2(arrayBytes, value.password);
+                    string token = certificate.ToString(true);
 
-                //Extracción parámetros del certificado.
-                value.numeroSerie = certificate.GetSerialNumberString();
-                value.entidadEmisora = certificate.Issuer.ToString();
-                value.subject = certificate.Subject;
-                value.fechaCaducidad = certificate.NotAfter;
-                value.caducado = false;
-                this._context.Certificates.Add(value);
-                this._context.SaveChanges();
+                    //Extracción parámetros del certificado.
+                    value.numeroSerie = certificate.GetSerialNumberString();
+                    value.entidadEmisora = certificate.Issuer.ToString();
+                    value.subject = certificate.Subject;
+                    value.fechaCaducidad = certificate.NotAfter;
+                    value.caducado = false;
+                    this._context.Certificates.Add(value);
+                    this._context.SaveChanges();
 
-                Control control = new Control(200, "Certificado añadido", "", -1, -1);
-                return control;
+                    Control control = new Control(200, "Certificado añadido");
+                    return control;
+                }
+                catch
+                {
+                    Control control = new Control(409, "Contraseña Inválida");
+                    return control;
+                }
             } catch(Exception e)
             {
                 return Unauthorized();
@@ -136,7 +145,7 @@ namespace GttApiWeb.Controllers
                     CertUpdate.ticket_creado = value.ticket_creado;
                     this._context.SaveChanges();
 
-                    Control control = new Control(200, "Certificado añadido", "", -1, -1);
+                    Control control = new Control(200, "Certificado añadido");
                     return control;
                 }
 

@@ -54,13 +54,13 @@ namespace GttApiWeb.Controllers
                         return control = new Control(200, "Login Realizado correctamente", token,UserResult.id, (int)UserResult.role);
                     }
                 }
-                return control = new Control( 204,"Usuario o contraseña incorrectos", "-1",-1,-1);
+                return control = new Control( 204,"Usuario o contraseña incorrectos");
 
                }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                control = new Control(404,"Error:","-1",-1,-1);
+                control = new Control(404,"Error:");
             }
             return Unauthorized();
         }

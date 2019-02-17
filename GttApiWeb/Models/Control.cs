@@ -22,6 +22,11 @@ namespace GttApiWeb.Models
             this.role = role;
           
         }
+        public Control(int status,string comment)
+        {
+            this.status = status;
+            this.comment = comment;
+        }
     }
     
 }
