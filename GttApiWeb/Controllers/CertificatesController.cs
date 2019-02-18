@@ -162,8 +162,23 @@ namespace GttApiWeb.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<Control> Delete(long id)
         {
+            Control control;
+            try
+            {
+                var headerValue = Request.Headers["Authorization"];
+                var tokenJ = JWT.Decode(headerValue, "top secret");
+
+                Certificates certDelete = this._context.Certificates.Where(emp => emp.id.Equals(id)).First();
+                this._context.Certificates.Remove(certDelete);
+                this._context.SaveChanges();
+                return control = new Control(200, "Borrado Realizado"); 
+            }
+            catch(Exception)
+            {
+                return Unauthorized();
+            }
         }
     }
 }
