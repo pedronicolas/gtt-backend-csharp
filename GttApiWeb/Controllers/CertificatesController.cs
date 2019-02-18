@@ -34,7 +34,7 @@ namespace GttApiWeb.Controllers
                 var headerValue = Request.Headers["Authorization"];
                 var token = JWT.Decode(headerValue, "top secret");
                 return this._context.Certificates.ToList();
-            } catch(Exception e)
+            } catch(Exception)
             {
                 return Unauthorized();
             }
@@ -59,7 +59,7 @@ namespace GttApiWeb.Controllers
                 {
                     return NotFound();
                 }
-            } catch(Exception e)
+            } catch(Exception)
             {
                 return Unauthorized();
             }
@@ -101,7 +101,7 @@ namespace GttApiWeb.Controllers
                     Control control = new Control(409, "Contraseña Inválida");
                     return control;
                 }
-            } catch(Exception e)
+            } catch(Exception)
             {
                 return Unauthorized();
             }
@@ -119,6 +119,7 @@ namespace GttApiWeb.Controllers
             {
                 var headerValue = Request.Headers["Authorization"];
                 var tokenJ = JWT.Decode(headerValue, "top secret");
+
                 Certificates CertUpdate = this._context.Certificates.Where(cert => cert.id.Equals(value.id)).First();
                 if (CertUpdate != null)
                 {// Obtenemos el string en base64 y se convierte a byte []
@@ -149,7 +150,7 @@ namespace GttApiWeb.Controllers
                     return control;
                 }
 
-                return Ok("Todo ok");
+                return NotFound();
             }
             catch(Exception e)
             {

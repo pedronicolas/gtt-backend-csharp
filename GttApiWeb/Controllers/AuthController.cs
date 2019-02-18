@@ -50,7 +50,6 @@ namespace GttApiWeb.Controllers
                     if (UserResult.password == Encrypt.Hash(value.password))
                     {
                         string token = JWT.Encode(UserResult.id, "top secret", JweAlgorithm.PBES2_HS256_A128KW, JweEncryption.A256CBC_HS512);
-                        string token_decoded = JWT.Decode(token, "top secret");
                         return control = new Control(200, "Login Realizado correctamente", token,UserResult.id, (int)UserResult.role);
                     }
                 }
@@ -60,7 +59,7 @@ namespace GttApiWeb.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                control = new Control(404,"Error:");
+                control = new Control(404,"Error");
             }
             return Unauthorized();
         }

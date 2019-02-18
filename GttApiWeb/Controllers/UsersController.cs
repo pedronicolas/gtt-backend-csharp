@@ -14,14 +14,13 @@ namespace GttApiWeb.Controllers
     public class UsersController : ControllerBase
     {
         private readonly AppDBContext _context;
-        public Control control = new Control(0,"","",-1,-1);
+        public Control control;
 
         public UsersController(AppDBContext context)
         {
             this._context = context;
             if (this._context.Users.Count() == 0)
             {
-                Console.WriteLine("No existe ningún usuario");
                 Users usuario = new Users();
                 usuario.username = "PedroNicolas";
                 usuario.password = Encrypt.Hash("1234");
@@ -56,7 +55,7 @@ namespace GttApiWeb.Controllers
                 }
                 return user;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return Unauthorized();
             }

@@ -59,7 +59,7 @@ namespace GttApiWeb.Controllers
                 {
                     return NotFound();
                 }
-            } catch(Exception e)
+            } catch(Exception)
             {
                 return Unauthorized();
             }
@@ -81,7 +81,7 @@ namespace GttApiWeb.Controllers
                 try
                 {
 
-                    JiraResult = this._context.Jira.Where(userQ => userQ.username == value.username).First();
+                  JiraResult = this._context.Jira.Where(userQ => userQ.username == value.username).First();
                 }
                 catch (Exception)
                 {
@@ -139,7 +139,7 @@ namespace GttApiWeb.Controllers
                 }
 
                 return NotFound();
-            } catch(Exception e)
+            } catch(Exception)
             {
                 return Unauthorized();
             }
